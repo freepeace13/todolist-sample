@@ -1,0 +1,22 @@
+version: "3"
+services:
+  mysql:
+    build:
+      context: ./docker/mysql
+      args:
+        MYSQL_PORT: ${DB_PORT}
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_TCP_PORT: ${DB_PORT}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USERNAME: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    network_mode: "host"
+
+volumes:
+  redis:
+    driver: "local"
+  mysql:
+    driver: "local"
