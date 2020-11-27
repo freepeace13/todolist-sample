@@ -24,15 +24,6 @@ export default {
             type: String,
             required: true
         }
-    },
-
-    filters: {
-        highlights(value) {
-            console.log(this.date)
-            return {
-                'bg-primary text-white': isSameDate(value, this.date)
-            }
-        }
     }
 }
 </script>

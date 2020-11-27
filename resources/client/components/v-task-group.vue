@@ -69,14 +69,6 @@ export default {
     },
 
     methods: {
-        taskCompletion(index, isCompleted) {
-            const task = this.value.tasks[index];
-
-            this.value.tasks.splice(index, 1, task.recreate({
-                completed: isCompleted
-            }));
-        },
-
         titleChanges(title) {
             this.updateGroup(this.value.recreate({ title }));
         },
