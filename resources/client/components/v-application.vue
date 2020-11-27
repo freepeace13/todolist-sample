@@ -2,7 +2,7 @@
     div
         v-navigator(:date="$route.params.date")
 
-        v-weekdays.d-none.d-md-block(:date="$route.params.date")
+        v-weekdays(:date="$route.params.date")
 
         div.bg-white.py-2.text-center
             button.btn.btn-light(@click="createGroup") ADD GROUP

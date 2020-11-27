@@ -1,5 +1,5 @@
 <template lang="pug">
-    nav.bg-white.py-2.shadow
+    nav.bg-white.py-2.overflow-auto
         div.container-fluid
             div.row.flex-nowrap
                 div.col(v-for="weekday in $utils.dates.weekdays(date)")

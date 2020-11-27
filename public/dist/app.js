@@ -40028,7 +40028,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("nav", { staticClass: "bg-white py-2 shadow" }, [
+  return _c("nav", { staticClass: "bg-white py-2 overflow-auto" }, [
     _c("div", { staticClass: "container-fluid" }, [
       _c(
         "div",
@@ -40191,9 +40191,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    {
-      staticClass: "navbar navbar-expand-lg navbar-light bg-white border-bottom"
-    },
+    { staticClass: "navbar navbar-expand-lg navbar-light bg-white" },
     [
       _c("div", { staticClass: "container-fluid" }, [
         _c(
@@ -40535,10 +40533,7 @@ var render = function() {
     "div",
     [
       _c("v-navigator", { attrs: { date: _vm.$route.params.date } }),
-      _c("v-weekdays", {
-        staticClass: "d-none d-md-block",
-        attrs: { date: _vm.$route.params.date }
-      }),
+      _c("v-weekdays", { attrs: { date: _vm.$route.params.date } }),
       _c("div", { staticClass: "bg-white py-2 text-center" }, [
         _c(
           "button",
@@ -40985,7 +40980,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card h-100 shadow-sm rounded-0 border-0" }, [
-    _c("div", { staticClass: "card-header bg-white" }, [
+    _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row align-items-center" }, [
         _c(
           "div",
@@ -41020,7 +41015,7 @@ var render = function() {
     ]),
     _c(
       "div",
-      { staticClass: "card-body overflow-auto bg-light" },
+      { staticClass: "card-body overflow-auto" },
       _vm._l(_vm.value.tasks, function(task, index) {
         return _c("div", { key: task.id, staticClass: "mb-3" }, [
           _c("div", { staticClass: "row align-items-top" }, [
@@ -41076,9 +41071,9 @@ var render = function() {
     ),
     _c(
       "div",
-      { staticClass: "card-footer bg-white align-items-center d-flex" },
+      { staticClass: "card-footer align-items-center d-flex border-top-0" },
       [
-        _c("span", { staticClass: "badge badge-success" }, [
+        _c("span", { staticClass: "badge badge-primary" }, [
           _vm._v(_vm._s(_vm.value.tasks.length) + " TASKS")
         ]),
         _c(
@@ -41091,7 +41086,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("ADD NEW")]
+          [_vm._v("ADD TASK")]
         )
       ]
     )

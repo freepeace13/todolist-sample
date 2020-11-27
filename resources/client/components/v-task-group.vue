@@ -1,6 +1,6 @@
 <template lang="pug">
     .card.h-100.shadow-sm.rounded-0.border-0
-        .card-header.bg-white
+        .card-header
             .row.align-items-center
                 .col.mr-auto
                     v-text-input(
@@ -11,7 +11,7 @@
                     button.btn.btn-light.btn-sm(@click="deleteGroup(value)")
                         i.fa.fa-trash-o.text-danger
 
-        div.card-body.overflow-auto.bg-light
+        div.card-body.overflow-auto
             .mb-3(v-for="(task, index) in value.tasks" :key="task.id")
                 .row.align-items-top
                     .col-auto
@@ -32,12 +32,12 @@
                         button.btn.btn-light.btn-sm(@click="deleteTask(task)")
                             i.fa.fa-trash-o.text-danger
 
-        .card-footer.bg-white.align-items-center.d-flex
-            span.badge.badge-success {{ value.tasks.length }} TASKS
+        .card-footer.align-items-center.d-flex.border-top-0
+            span.badge.badge-primary {{ value.tasks.length }} TASKS
 
             button.btn.btn-link.text-dark.btn-sm.ml-auto(
                 @click="createTask(value)"
-            ) ADD NEW
+            ) ADD TASK
 </template>
 
 <script>

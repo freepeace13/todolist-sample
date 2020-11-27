@@ -1,5 +1,5 @@
 <template lang="pug">
-    nav.navbar.navbar-expand-lg.navbar-light.bg-white.border-bottom
+    nav.navbar.navbar-expand-lg.navbar-light.bg-white
         .container-fluid
             button.btn.btn-light.btn-sm(@click="toPreviousDate")
                 i.fa.fa-angle-double-left
