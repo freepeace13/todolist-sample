@@ -11,17 +11,6 @@ export default class Group {
         this.createdAt = props.createdAt;
     }
 
-    spliceTask(task) {
-        const index = this.tasks.findIndex((v) => v.id === task.id);
-        const cloneTasks = [...this.tasks];
-
-        if (index >= 0) {
-            cloneTasks.splice(index, 1, task);
-        }
-
-        return this.recreate({ tasks: cloneTasks });
-    }
-
     recreate(props = {}) {
         return new Group({ ...this, ...props });
     }

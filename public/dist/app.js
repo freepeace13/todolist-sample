@@ -40643,8 +40643,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
@@ -40665,20 +40663,6 @@ var Group = function () {
     }
 
     _createClass(Group, [{
-        key: 'spliceTask',
-        value: function spliceTask(task) {
-            var index = this.tasks.findIndex(function (v) {
-                return v.id === task.id;
-            });
-            var cloneTasks = [].concat(_toConsumableArray(this.tasks));
-
-            if (index >= 0) {
-                cloneTasks.splice(index, 1, task);
-            }
-
-            return this.recreate({ tasks: cloneTasks });
-        }
-    }, {
         key: 'recreate',
         value: function recreate() {
             var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -40961,9 +40945,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.value.tasks.splice(index, 1, task.recreate({
                 completed: isCompleted
             }));
-        },
-        taskChanges: function taskChanges(task) {
-            this.updateGroup(this.value.spliceTask(task));
         },
         titleChanges: function titleChanges(title) {
             this.updateGroup(this.value.recreate({ title: title }));

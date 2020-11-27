@@ -45,9 +45,7 @@ export function shortdate(value) {
 export function weekdays(value) {
     value = moment(value);
 
-    var start = value.clone().startOf('isoWeek');
+    const start = value.clone().startOf('isoWeek');
 
-    return [...Array(7).keys()].map((v) => {
-        return moment(start).add(v, 'days');
-    });
+    return [...Array(7).keys()].map((v) => moment(start).add(v, 'days'));
 }

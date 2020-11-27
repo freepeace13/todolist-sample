@@ -77,10 +77,6 @@ export default {
             }));
         },
 
-        taskChanges(task) {
-            this.updateGroup(this.value.spliceTask(task));
-        },
-
         titleChanges(title) {
             this.updateGroup(this.value.recreate({ title }));
         },
