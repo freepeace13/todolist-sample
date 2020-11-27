@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TaskList;
-use Illuminate\Http\Request;
+use App\Models\TaskGroup;
 use App\Http\Resources\TaskResource;
 
 class CreateTask extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Handle the incoming request.
+     *
+     * @param integer $groupId
+     * @return void
+     */
+    public function __invoke(int $groupId)
     {
-        $validated = $this->validate($request, [
-            'listId' => ['required', 'exists:task_lists,id'],
-        ]);
+        $group = TaskGroup::find($groupId);
 
-        $tasklist = TaskList::find($validated['listId']);
-
-        $task = $tasklist->tasks()->create([
+        $task = $group->tasks()->create([
             'completed' => false
         ]);
 

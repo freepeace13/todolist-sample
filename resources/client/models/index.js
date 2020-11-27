@@ -1,4 +1,4 @@
-import TaskList from './task-list';
+import Group from './group';
 import Task from './task';
 
-export { TaskList, Task };
+export { Group, Task };

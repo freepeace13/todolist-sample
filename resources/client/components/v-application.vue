@@ -5,46 +5,49 @@
         v-weekdays.d-none.d-md-block(:date="$route.params.date")
 
         div.bg-white.py-2.text-center
-            button.btn.btn-light(@click="createChecklist") Create Checklist
+            button.btn.btn-light(@click="createGroup") ADD GROUP
 
         .bg-light.py-5.overflow-auto(style={ height: 'calc(100vh - 217px)' })
             .container-fluid.h-100
                 .row.flex-nowrap.h-100
                     .col-xl-3.col-lg-4.col-sm-6.col-sm-6.col-12(
-                        v-for="(checklist, index) in checklists"
-                        :key="checklist.id"
+                        v-for="(group, index) in groups"
+                        :key="group.id"
                     )
-                        v-task-list(
-                            :value="checklist"
-                            @delete:checklist="deleteChecklist($event)"
-                            @delete:task="deleteTask(checklist, $event)"
-                            @create:task="createTask(checklist)"
-                            @input="updateChecklist($event)"
+                        v-task-group(
+                            :value="group"
+                            @delete:task="deleteTask(group, $event)"
+                            @create:task="createTask(group)"
                         )
 </template>
 
 <script>
-import axios from 'axios';
+import moment from 'moment';
+import { Group, Task } from '@models';
 import vWeekdays from '@components/v-weekdays';
 import vNavigator from '@components/v-navigator';
-import vTaskList from '@components/v-task-list';
-import { TaskList, Task } from '@models';
-import moment from 'moment';
+import vTaskGroup from '@components/v-task-group';
 
 export default {
     components: {
         vNavigator,
-        vTaskList,
+        vTaskGroup,
         vWeekdays
     },
 
     data: () => ({
-        checklists: []
+        groups: []
     }),
 
     provide() {
         return {
-            jumpTo: this.jumpTo
+            jumpTo: this.jumpTo,
+            deleteTask: this.deleteTask,
+            createTask: this.createTask,
+            updateTask: this.updateTask,
+            updateGroup: this.updateGroup,
+            deleteGroup: this.deleteGroup,
+            createGroup: this.createGroup,
         };
     },
 
@@ -56,46 +59,77 @@ export default {
             })
         },
 
-        async createChecklist() {
-            this.checklists.push(
-                await TaskList.create(this.$route.params.date)
+        async updateTask(task) {
+            const groupIndex = this.groups.findIndex(
+                (v) => v.id === task.groupId
+            );
+
+            if (groupIndex !== -1) {
+                const group = this.groups[groupIndex];
+                const taskIndex = group.tasks.findIndex((v) => v.id === task.id);
+
+                if (taskIndex !== -1) {
+                    const result = await Task.update(task);
+
+                    group.tasks.splice(taskIndex, 1, result);
+
+                    this.groups.splice(groupIndex, 1, group);
+                }
+            }
+        },
+
+        async createTask(group) {
+            const index = this.groups.findIndex((v) => v.id === group.id);
+
+            if (index >= 0) {
+                const result = await Task.create(group);
+
+                group.tasks.push(result);
+
+                this.groups.splice(index, 1, group);
+            }
+        },
+
+        async deleteTask(task) {
+            const index = this.groups.findIndex((v) => v.id === task.groupId);
+
+            if (index !== -1) {
+                const group = this.groups[index];
+                const taskIndex = group.tasks.findIndex((v) => v.id === task.id);
+
+                if (taskIndex !== -1) {
+                    await Task.destroy(task);
+
+                    group.tasks.splice(taskIndex, 1);
+
+                    this.groups.splice(index, 1, group);
+                }
+            }
+        },
+
+        async createGroup() {
+            this.groups.push(
+                await Group.create(this.$route.params.date)
             );
         },
 
-        async deleteChecklist(checklist) {
-            await TaskList.destroy(checklist.id);
-            const index = this.checklists.findIndex((v) => v.id === checklist.id);
-            this.checklists.splice(index, 1);
-        },
+        async deleteGroup(group) {
+            const index = this.groups.findIndex((v) => v.id === group.id);
 
-        async createTask(checklist) {
-            const index = this.checklists.findIndex((v) => v.id === checklist.id);
+            if (index !== -1) {
+                await Group.destroy(group);
 
-            if (index >= 0) {
-                this.checklists.splice(index, 1,
-                    checklist.recreate({ tasks: [
-                        ...checklist.tasks,
-                        await Task.create(checklist.id)
-                    ]})
-                );
+                this.groups.splice(index, 1);
             }
         },
 
-        deleteTask(checklist, task) {
-            const index = checklist.tasks.findIndex((v) => v.id === task.id);
+        async updateGroup(group) {
+            const index = this.groups.findIndex((v) => v.id === group.id);
 
-            if (index >= 0) {
-                checklist.tasks.splice(index, 1);
-                this.updateChecklist(checklist);
-            }
-        },
+            if (index !== -1) {
+                const result = await Group.update(group);
 
-        async updateChecklist(instance) {
-            const index = this.checklists.findIndex((v) => v.id === instance.id);
-
-            if (index >= 0) {
-                const newValue = await TaskList.update(instance);
-                this.checklists.splice(index, 1, newValue);
+                this.groups.splice(index, 1, result);
             }
         }
     },
@@ -104,12 +138,12 @@ export default {
         $route: {
             immediate: true,
             handler(to) {
-                if (typeof to.params.date === 'undefined') {
+                if (! moment(String(to.params.date)).isValid()) {
                     return this.jumpTo(new Date);
                 }
 
                 this.$nextTick(async () => {
-                    this.checklists = await TaskList.get(to.params.date);
+                    this.groups = await Group.get(to.params.date);
                 });
             }
         }

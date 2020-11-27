@@ -4,8 +4,14 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TaskListResource extends JsonResource
+class TaskGroupResource extends JsonResource
 {
+    /**
+     * Transform the resource into an array.
+     *
+     * @param mixed $request
+     * @return void
+     */
     public function toArray($request)
     {
         return [

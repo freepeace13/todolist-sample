@@ -22105,10 +22105,10 @@ function weekdays(value) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__task_list__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__group__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__task__ = __webpack_require__(152);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__task_list__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__task__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__group__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__task__["a"]; });
 
 
 
@@ -22141,6 +22141,7 @@ var Task = function () {
 
         this.id = props.id;
         this.title = props.title;
+        this.groupId = props.groupId;
         this.completed = props.completed;
         this.createdAt = props.createdAt;
     }
@@ -22155,7 +22156,7 @@ var Task = function () {
     }], [{
         key: 'create',
         value: function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(listId) {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(group) {
                 var _ref2, data;
 
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -22163,7 +22164,7 @@ var Task = function () {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 _context.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/tasks', { listId: listId });
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/groups/' + group.id + '/tasks');
 
                             case 2:
                                 _ref2 = _context.sent;
@@ -22183,6 +22184,69 @@ var Task = function () {
             }
 
             return create;
+        }()
+    }, {
+        key: 'update',
+        value: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(task) {
+                var _ref4, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/api/groups/' + task.groupId + '/tasks/' + task.id, {
+                                    title: task.title,
+                                    completed: task.completed
+                                });
+
+                            case 2:
+                                _ref4 = _context2.sent;
+                                data = _ref4.data;
+                                return _context2.abrupt('return', new Task(data.data));
+
+                            case 5:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function update(_x3) {
+                return _ref3.apply(this, arguments);
+            }
+
+            return update;
+        }()
+    }, {
+        key: 'destroy',
+        value: function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(task) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _context3.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/groups/' + task.groupId + '/tasks/' + task.id);
+
+                            case 2:
+                                return _context3.abrupt('return', _context3.sent);
+
+                            case 3:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+
+            function destroy(_x4) {
+                return _ref5.apply(this, arguments);
+            }
+
+            return destroy;
         }()
     }]);
 
@@ -22208,7 +22272,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_v_application__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_v_application___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_v_application__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bootstrap__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bootstrap__ = __webpack_require__(201);
 
 
 
@@ -22217,7 +22281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].prototype.$utils = __webpack_require__(196);
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].prototype.$utils = __webpack_require__(202);
 
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
     template: '<router-view></router-view>',
@@ -37571,7 +37635,7 @@ var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(160)
 /* template */
-var __vue_template__ = __webpack_require__(194)
+var __vue_template__ = __webpack_require__(200)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -37617,20 +37681,16 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_v_weekdays__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_v_weekdays___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_v_weekdays__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_v_navigator__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_v_navigator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_v_navigator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_v_task_list__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_v_task_list___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_v_task_list__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_v_weekdays__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_v_weekdays___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_v_weekdays__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_v_navigator__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_v_navigator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_v_navigator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_v_task_group__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_v_task_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_v_task_group__);
 
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -37657,9 +37717,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-
 
 
 
@@ -37669,20 +37726,26 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        vNavigator: __WEBPACK_IMPORTED_MODULE_3__components_v_navigator___default.a,
-        vTaskList: __WEBPACK_IMPORTED_MODULE_4__components_v_task_list___default.a,
-        vWeekdays: __WEBPACK_IMPORTED_MODULE_2__components_v_weekdays___default.a
+        vNavigator: __WEBPACK_IMPORTED_MODULE_4__components_v_navigator___default.a,
+        vTaskGroup: __WEBPACK_IMPORTED_MODULE_5__components_v_task_group___default.a,
+        vWeekdays: __WEBPACK_IMPORTED_MODULE_3__components_v_weekdays___default.a
     },
 
     data: function data() {
         return {
-            checklists: []
+            groups: []
         };
     },
 
     provide: function provide() {
         return {
-            jumpTo: this.jumpTo
+            jumpTo: this.jumpTo,
+            deleteTask: this.deleteTask,
+            createTask: this.createTask,
+            updateTask: this.updateTask,
+            updateGroup: this.updateGroup,
+            deleteGroup: this.deleteGroup,
+            createGroup: this.createGroup
         };
     },
 
@@ -37694,22 +37757,44 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 params: { date: this.$utils.dates.urldate(date) }
             });
         },
-        createChecklist: function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        updateTask: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(task) {
+                var groupIndex, group, taskIndex, result;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                _context.t0 = this.checklists;
-                                _context.next = 3;
-                                return __WEBPACK_IMPORTED_MODULE_5__models__["b" /* TaskList */].create(this.$route.params.date);
+                                groupIndex = this.groups.findIndex(function (v) {
+                                    return v.id === task.groupId;
+                                });
 
-                            case 3:
-                                _context.t1 = _context.sent;
+                                if (!(groupIndex !== -1)) {
+                                    _context.next = 10;
+                                    break;
+                                }
 
-                                _context.t0.push.call(_context.t0, _context.t1);
+                                group = this.groups[groupIndex];
+                                taskIndex = group.tasks.findIndex(function (v) {
+                                    return v.id === task.id;
+                                });
 
-                            case 5:
+                                if (!(taskIndex !== -1)) {
+                                    _context.next = 10;
+                                    break;
+                                }
+
+                                _context.next = 7;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["b" /* Task */].update(task);
+
+                            case 7:
+                                result = _context.sent;
+
+
+                                group.tasks.splice(taskIndex, 1, result);
+
+                                this.groups.splice(groupIndex, 1, group);
+
+                            case 10:
                             case 'end':
                                 return _context.stop();
                         }
@@ -37717,30 +37802,40 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee, this);
             }));
 
-            function createChecklist() {
+            function updateTask(_x) {
                 return _ref.apply(this, arguments);
             }
 
-            return createChecklist;
+            return updateTask;
         }(),
-        deleteChecklist: function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(checklist) {
-                var index;
+        createTask: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(group) {
+                var index, result;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                _context2.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_5__models__["b" /* TaskList */].destroy(checklist.id);
-
-                            case 2:
-                                index = this.checklists.findIndex(function (v) {
-                                    return v.id === checklist.id;
+                                index = this.groups.findIndex(function (v) {
+                                    return v.id === group.id;
                                 });
 
-                                this.checklists.splice(index, 1);
+                                if (!(index >= 0)) {
+                                    _context2.next = 7;
+                                    break;
+                                }
+
+                                _context2.next = 4;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["b" /* Task */].create(group);
 
                             case 4:
+                                result = _context2.sent;
+
+
+                                group.tasks.push(result);
+
+                                this.groups.splice(index, 1, group);
+
+                            case 7:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -37748,48 +37843,48 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee2, this);
             }));
 
-            function deleteChecklist(_x) {
+            function createTask(_x2) {
                 return _ref2.apply(this, arguments);
             }
 
-            return deleteChecklist;
+            return createTask;
         }(),
-        createTask: function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(checklist) {
-                var index;
+        deleteTask: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(task) {
+                var index, group, taskIndex;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
-                                index = this.checklists.findIndex(function (v) {
-                                    return v.id === checklist.id;
+                                index = this.groups.findIndex(function (v) {
+                                    return v.id === task.groupId;
                                 });
 
-                                if (!(index >= 0)) {
-                                    _context3.next = 15;
+                                if (!(index !== -1)) {
+                                    _context3.next = 9;
                                     break;
                                 }
 
-                                _context3.t0 = this.checklists;
-                                _context3.t1 = index;
-                                _context3.t2 = checklist;
-                                _context3.t3 = [];
-                                _context3.t4 = _toConsumableArray(checklist.tasks);
-                                _context3.next = 9;
-                                return __WEBPACK_IMPORTED_MODULE_5__models__["a" /* Task */].create(checklist.id);
+                                group = this.groups[index];
+                                taskIndex = group.tasks.findIndex(function (v) {
+                                    return v.id === task.id;
+                                });
+
+                                if (!(taskIndex !== -1)) {
+                                    _context3.next = 9;
+                                    break;
+                                }
+
+                                _context3.next = 7;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["b" /* Task */].destroy(task);
+
+                            case 7:
+
+                                group.tasks.splice(taskIndex, 1);
+
+                                this.groups.splice(index, 1, group);
 
                             case 9:
-                                _context3.t5 = _context3.sent;
-                                _context3.t6 = [_context3.t5];
-                                _context3.t7 = _context3.t3.concat.call(_context3.t3, _context3.t4, _context3.t6);
-                                _context3.t8 = {
-                                    tasks: _context3.t7
-                                };
-                                _context3.t9 = _context3.t2.recreate.call(_context3.t2, _context3.t8);
-
-                                _context3.t0.splice.call(_context3.t0, _context3.t1, 1, _context3.t9);
-
-                            case 15:
                             case 'end':
                                 return _context3.stop();
                         }
@@ -37797,47 +37892,28 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee3, this);
             }));
 
-            function createTask(_x2) {
+            function deleteTask(_x3) {
                 return _ref3.apply(this, arguments);
             }
 
-            return createTask;
+            return deleteTask;
         }(),
-        deleteTask: function deleteTask(checklist, task) {
-            var index = checklist.tasks.findIndex(function (v) {
-                return v.id === task.id;
-            });
-
-            if (index >= 0) {
-                checklist.tasks.splice(index, 1);
-                this.updateChecklist(checklist);
-            }
-        },
-        updateChecklist: function () {
-            var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(instance) {
-                var index, newValue;
+        createGroup: function () {
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
                     while (1) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
-                                index = this.checklists.findIndex(function (v) {
-                                    return v.id === instance.id;
-                                });
+                                _context4.t0 = this.groups;
+                                _context4.next = 3;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["a" /* Group */].create(this.$route.params.date);
 
-                                if (!(index >= 0)) {
-                                    _context4.next = 6;
-                                    break;
-                                }
+                            case 3:
+                                _context4.t1 = _context4.sent;
 
-                                _context4.next = 4;
-                                return __WEBPACK_IMPORTED_MODULE_5__models__["b" /* TaskList */].update(instance);
+                                _context4.t0.push.call(_context4.t0, _context4.t1);
 
-                            case 4:
-                                newValue = _context4.sent;
-
-                                this.checklists.splice(index, 1, newValue);
-
-                            case 6:
+                            case 5:
                             case 'end':
                                 return _context4.stop();
                         }
@@ -37845,11 +37921,87 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 }, _callee4, this);
             }));
 
-            function updateChecklist(_x3) {
+            function createGroup() {
                 return _ref4.apply(this, arguments);
             }
 
-            return updateChecklist;
+            return createGroup;
+        }(),
+        deleteGroup: function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(group) {
+                var index;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+                    while (1) {
+                        switch (_context5.prev = _context5.next) {
+                            case 0:
+                                index = this.groups.findIndex(function (v) {
+                                    return v.id === group.id;
+                                });
+
+                                if (!(index !== -1)) {
+                                    _context5.next = 5;
+                                    break;
+                                }
+
+                                _context5.next = 4;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["a" /* Group */].destroy(group);
+
+                            case 4:
+
+                                this.groups.splice(index, 1);
+
+                            case 5:
+                            case 'end':
+                                return _context5.stop();
+                        }
+                    }
+                }, _callee5, this);
+            }));
+
+            function deleteGroup(_x4) {
+                return _ref5.apply(this, arguments);
+            }
+
+            return deleteGroup;
+        }(),
+        updateGroup: function () {
+            var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee6(group) {
+                var index, result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
+                    while (1) {
+                        switch (_context6.prev = _context6.next) {
+                            case 0:
+                                index = this.groups.findIndex(function (v) {
+                                    return v.id === group.id;
+                                });
+
+                                if (!(index !== -1)) {
+                                    _context6.next = 6;
+                                    break;
+                                }
+
+                                _context6.next = 4;
+                                return __WEBPACK_IMPORTED_MODULE_2__models__["a" /* Group */].update(group);
+
+                            case 4:
+                                result = _context6.sent;
+
+
+                                this.groups.splice(index, 1, result);
+
+                            case 6:
+                            case 'end':
+                                return _context6.stop();
+                        }
+                    }
+                }, _callee6, this);
+            }));
+
+            function updateGroup(_x5) {
+                return _ref6.apply(this, arguments);
+            }
+
+            return updateGroup;
         }()
     },
 
@@ -37859,27 +38011,27 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             handler: function handler(to) {
                 var _this = this;
 
-                if (typeof to.params.date === 'undefined') {
+                if (!__WEBPACK_IMPORTED_MODULE_1_moment___default()(String(to.params.date)).isValid()) {
                     return this.jumpTo(new Date());
                 }
 
-                this.$nextTick(_asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5() {
-                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+                this.$nextTick(_asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee7() {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
                         while (1) {
-                            switch (_context5.prev = _context5.next) {
+                            switch (_context7.prev = _context7.next) {
                                 case 0:
-                                    _context5.next = 2;
-                                    return __WEBPACK_IMPORTED_MODULE_5__models__["b" /* TaskList */].get(to.params.date);
+                                    _context7.next = 2;
+                                    return __WEBPACK_IMPORTED_MODULE_2__models__["a" /* Group */].get(to.params.date);
 
                                 case 2:
-                                    _this.checklists = _context5.sent;
+                                    _this.groups = _context7.sent;
 
                                 case 3:
                                 case 'end':
-                                    return _context5.stop();
+                                    return _context7.stop();
                             }
                         }
-                    }, _callee5, _this);
+                    }, _callee7, _this);
                 })));
             }
         }
@@ -40090,327 +40242,9 @@ if (false) {
 }
 
 /***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(188)
-/* template */
-var __vue_template__ = __webpack_require__(193)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/client/components/v-task-list.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-484b3b12", Component.options)
-  } else {
-    hotAPI.reload("data-v-484b3b12", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_v_task_input__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_v_task_input___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_v_task_input__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        vTaskInput: __WEBPACK_IMPORTED_MODULE_1__components_v_task_input___default.a
-    },
-
-    props: {
-        value: {
-            type: __WEBPACK_IMPORTED_MODULE_0__models__["b" /* TaskList */],
-            required: true
-        }
-    },
-
-    data: function data() {
-        return {
-            title: null
-        };
-    },
-
-    methods: {
-        taskChanges: function taskChanges(task) {
-            this.$emit('input', this.value.spliceTask(task));
-        },
-        titleChanges: function titleChanges(title) {
-            this.$emit('input', this.value.recreate({ title: title }));
-        }
-    }
-});
-
-/***/ }),
-/* 189 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__task__ = __webpack_require__(152);
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-var TaskList = function () {
-    function TaskList(props) {
-        _classCallCheck(this, TaskList);
-
-        this.id = props.id;
-        this.schedule = props.schedule;
-        this.title = props.title;
-        this.tasks = props.tasks.map(function (v) {
-            return new __WEBPACK_IMPORTED_MODULE_2__task__["a" /* default */](v);
-        });
-        this.completed = true;
-        this.createdAt = props.createdAt;
-    }
-
-    _createClass(TaskList, [{
-        key: 'spliceTask',
-        value: function spliceTask(task) {
-            var index = this.tasks.findIndex(function (v) {
-                return v.id === task.id;
-            });
-            var cloneTasks = [].concat(_toConsumableArray(this.tasks));
-
-            if (index >= 0) {
-                cloneTasks.splice(index, 1, task);
-            }
-
-            return this.recreate({ tasks: cloneTasks });
-        }
-    }, {
-        key: 'recreate',
-        value: function recreate() {
-            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            return new TaskList(_extends({}, this, props));
-        }
-    }], [{
-        key: 'get',
-        value: function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(date) {
-                var _ref2, data;
-
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                _context.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/todos/' + date);
-
-                            case 2:
-                                _ref2 = _context.sent;
-                                data = _ref2.data.data;
-                                return _context.abrupt('return', data.map(function (v) {
-                                    return new TaskList(v);
-                                }));
-
-                            case 5:
-                            case 'end':
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, this);
-            }));
-
-            function get(_x2) {
-                return _ref.apply(this, arguments);
-            }
-
-            return get;
-        }()
-    }, {
-        key: 'create',
-        value: function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(date) {
-                var _ref4, data;
-
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                _context2.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/todos/' + date);
-
-                            case 2:
-                                _ref4 = _context2.sent;
-                                data = _ref4.data.data;
-                                return _context2.abrupt('return', new TaskList(data));
-
-                            case 5:
-                            case 'end':
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this);
-            }));
-
-            function create(_x3) {
-                return _ref3.apply(this, arguments);
-            }
-
-            return create;
-        }()
-    }, {
-        key: 'update',
-        value: function () {
-            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(instance) {
-                var _ref6, data;
-
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                _context3.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/api/lists/' + instance.id, {
-                                    title: instance.title,
-                                    tasks: instance.tasks.map(function (v) {
-                                        return {
-                                            id: v.id,
-                                            title: v.title,
-                                            completed: v.completed
-                                        };
-                                    })
-                                });
-
-                            case 2:
-                                _ref6 = _context3.sent;
-                                data = _ref6.data;
-                                return _context3.abrupt('return', new TaskList(data.data));
-
-                            case 5:
-                            case 'end':
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, this);
-            }));
-
-            function update(_x4) {
-                return _ref5.apply(this, arguments);
-            }
-
-            return update;
-        }()
-    }, {
-        key: 'destroy',
-        value: function () {
-            var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(listId) {
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
-                    while (1) {
-                        switch (_context4.prev = _context4.next) {
-                            case 0:
-                                _context4.next = 2;
-                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/lists/' + listId);
-
-                            case 2:
-                                return _context4.abrupt('return', _context4.sent);
-
-                            case 3:
-                            case 'end':
-                                return _context4.stop();
-                        }
-                    }
-                }, _callee4, this);
-            }));
-
-            function destroy(_x5) {
-                return _ref7.apply(this, arguments);
-            }
-
-            return destroy;
-        }()
-    }]);
-
-    return TaskList;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (TaskList);
-
-/***/ }),
+/* 187 */,
+/* 188 */,
+/* 189 */,
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40436,7 +40270,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/client/components/v-task-input.vue"
+Component.options.__file = "resources/client/components/v-check-input.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -40445,9 +40279,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-72709a06", Component.options)
+    hotAPI.createRecord("data-v-43257d1e", Component.options)
   } else {
-    hotAPI.reload("data-v-72709a06", Component.options)
+    hotAPI.reload("data-v-43257d1e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -40477,11 +40311,109 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'v-check-input',
+
+    props: {
+        value: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    methods: {
+        toggleCheck: function toggleCheck($event) {
+            console.log($event);
+            this.$emit('input', $event.target.value === 'false' ? true : false);
+        }
+    }
+});
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "custom-control custom-checkbox" }, [
+    _c("input", {
+      staticClass: "custom-control-input",
+      attrs: { type: "checkbox", id: _vm.$vnode.key },
+      domProps: { value: _vm.value, checked: _vm.value },
+      on: { input: _vm.toggleCheck }
+    }),
+    _c("label", {
+      staticClass: "custom-control-label",
+      attrs: { for: _vm.$vnode.key }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-43257d1e", module.exports)
+  }
+}
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(194)
+/* template */
+var __vue_template__ = __webpack_require__(195)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/components/v-text-input.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e20190a4", Component.options)
+  } else {
+    hotAPI.reload("data-v-e20190a4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -40503,19 +40435,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'v-text-input',
+
     props: {
-        text: {
+        value: {
             validator: function validator(prop) {
                 return typeof prop === 'undefined' || typeof prop === 'string' || prop === null;
             }
         },
 
-        checked: {
-            type: Boolean,
-            default: false
-        },
-
-        withoutCheckbox: {
+        crossout: {
             type: Boolean,
             default: false
         }
@@ -40523,96 +40452,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            editing: false
+            write: false
         };
     },
 
     methods: {
-        checkboxCheck: function checkboxCheck($event) {
-            this.$emit('checkbox:input', $event.target.value === 'false' ? true : false);
-        },
-        toggleEditMode: function toggleEditMode() {
+        enableWrite: function enableWrite() {
             var _this = this;
 
-            this.editing = !this.editing;
-
-            if (this.editing) {
-                this.$nextTick(function () {
-                    return _this.$refs.input.focus();
-                });
-            }
+            this.write = true;
+            this.$nextTick(function () {
+                return _this.$refs.input.focus();
+            });
+        },
+        disableWrite: function disableWrite($event) {
+            this.write = false;
+            this.$emit('blur', $event.target.value);
         }
     }
 });
 
 /***/ }),
-/* 192 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("dl", { staticClass: "row mb-0" }, [
-    _c("dt", { staticClass: "col-sm-1" }, [
-      _c("div", { staticClass: "custom-control custom-checkbox" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "checkbox", id: _vm.$vnode.key },
-          domProps: { value: _vm.checked, checked: _vm.checked },
-          on: { input: _vm.checkboxCheck }
-        }),
-        _c("label", {
-          staticClass: "custom-control-label",
-          attrs: { for: _vm.$vnode.key }
+  return _c("div", { staticClass: "v-text-input" }, [
+    !_vm.write
+      ? _c("div", {
+          staticClass: "h-100 font-weight-light",
+          domProps: {
+            innerHTML: _vm._s(
+              _vm.crossout
+                ? "<del>" + _vm.value + "</del>"
+                : _vm.$utils.str.title(_vm.value)
+            )
+          },
+          on: { click: _vm.enableWrite }
         })
-      ])
-    ]),
-    _c("dd", { staticClass: "col-sm-11 mb-0" }, [
-      _c("dl", { staticClass: "row mb-0" }, [
-        _c("dt", { staticClass: "col-sm-10" }, [
-          _c("div", {
-            staticClass: "h-auto font-weight-light",
-            class: { "d-none": _vm.editing },
-            domProps: {
-              innerHTML: _vm._s(
-                _vm.checked ? "<del>" + _vm.text + "</del>" : _vm.text
-              )
+      : _c("textarea", {
+          ref: "input",
+          staticClass: "form-control border-0",
+          domProps: { value: _vm.$utils.str.title(_vm.value) },
+          on: {
+            input: function($event) {
+              _vm.$listeners.input || function() {}
             },
-            on: { click: _vm.toggleEditMode }
-          }),
-          _c("textarea", {
-            ref: "input",
-            class: ["form-control border-0", { "d-none": !_vm.editing }],
-            attrs: { type: "text" },
-            domProps: { value: _vm.text || "" },
-            on: {
-              input: function($event) {
-                return _vm.$emit("text:input", $event.target.value)
-              },
-              blur: function($event) {
-                _vm.$emit("text:blur", $event.target.value),
-                  (_vm.editing = false)
-              }
-            }
-          })
-        ]),
-        _c("dd", { staticClass: "col-sm-2 mb-0" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-light btn-sm",
-              on: {
-                click: function($event) {
-                  return _vm.$emit("click:append")
-                }
-              }
+            focus: function($event) {
+              _vm.$listeners.focus || function() {}
             },
-            [_c("i", { staticClass: "fa fa-trash-o text-danger" })]
-          )
-        ])
-      ])
-    ])
+            blur: _vm.disableWrite
+          }
+        })
   ])
 }
 var staticRenderFns = []
@@ -40621,99 +40515,16 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-72709a06", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-e20190a4", module.exports)
   }
 }
 
 /***/ }),
-/* 193 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card h-100 shadow-sm rounded-0 border-0" }, [
-    _c(
-      "div",
-      { staticClass: "card-header bg-white" },
-      [
-        _c("v-task-input", {
-          attrs: {
-            "without-checkbox": "without-checkbox",
-            text: _vm.value.title
-          },
-          on: {
-            "click:append": function($event) {
-              return _vm.$emit("delete:checklist", _vm.value)
-            },
-            "text:blur": function($event) {
-              return _vm.titleChanges($event)
-            }
-          }
-        })
-      ],
-      1
-    ),
-    _c(
-      "div",
-      { staticClass: "card-body overflow-auto bg-light" },
-      _vm._l(_vm.value.tasks, function(task) {
-        return _c("v-task-input", {
-          key: task.id,
-          staticClass: "mb-3",
-          attrs: { text: task.title, checked: task.completed },
-          on: {
-            "text:blur": function($event) {
-              _vm.taskChanges(task.recreate({ title: $event }))
-            },
-            "checkbox:input": function($event) {
-              _vm.taskChanges(task.recreate({ completed: $event }))
-            },
-            "click:append": function($event) {
-              return _vm.$emit("delete:task", task)
-            }
-          }
-        })
-      }),
-      1
-    ),
-    _c(
-      "div",
-      { staticClass: "card-footer bg-white align-items-center d-flex" },
-      [
-        _c("span", { staticClass: "badge badge-success" }, [
-          _vm._v(_vm._s(_vm.value.tasks.length) + " TASKS")
-        ]),
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-link text-dark text-decoration-none rounded-0 btn-sm ml-auto",
-            on: {
-              click: function($event) {
-                return _vm.$emit("create:task")
-              }
-            }
-          },
-          [_vm._v("ADD NEW")]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-484b3b12", module.exports)
-  }
-}
-
-/***/ }),
-/* 194 */
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -40731,8 +40542,8 @@ var render = function() {
       _c("div", { staticClass: "bg-white py-2 text-center" }, [
         _c(
           "button",
-          { staticClass: "btn btn-light", on: { click: _vm.createChecklist } },
-          [_vm._v("Create Checklist")]
+          { staticClass: "btn btn-light", on: { click: _vm.createGroup } },
+          [_vm._v("ADD GROUP")]
         )
       ]),
       _c(
@@ -40746,28 +40557,22 @@ var render = function() {
             _c(
               "div",
               { staticClass: "row flex-nowrap h-100" },
-              _vm._l(_vm.checklists, function(checklist, index) {
+              _vm._l(_vm.groups, function(group, index) {
                 return _c(
                   "div",
                   {
-                    key: checklist.id,
+                    key: group.id,
                     staticClass: "col-xl-3 col-lg-4 col-sm-6 col-sm-6 col-12"
                   },
                   [
-                    _c("v-task-list", {
-                      attrs: { value: checklist },
+                    _c("v-task-group", {
+                      attrs: { value: group },
                       on: {
-                        "delete:checklist": function($event) {
-                          return _vm.deleteChecklist($event)
-                        },
                         "delete:task": function($event) {
-                          return _vm.deleteTask(checklist, $event)
+                          return _vm.deleteTask(group, $event)
                         },
                         "create:task": function($event) {
-                          return _vm.createTask(checklist)
-                        },
-                        input: function($event) {
-                          return _vm.updateChecklist($event)
+                          return _vm.createTask(group)
                         }
                       }
                     })
@@ -40795,7 +40600,7 @@ if (false) {
 }
 
 /***/ }),
-/* 195 */
+/* 201 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40807,14 +40612,504 @@ __WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.common['X-Request
 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.common['Accept'] = 'application/json';
 
 /***/ }),
-/* 196 */
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dates__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__str__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resource__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__resource__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "dates", function() { return __WEBPACK_IMPORTED_MODULE_0__dates__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "str", function() { return __WEBPACK_IMPORTED_MODULE_1__str__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "resource", function() { return __WEBPACK_IMPORTED_MODULE_2__resource__; });
 
+
+
+
+
+
+/***/ }),
+/* 203 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__task__ = __webpack_require__(152);
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+var Group = function () {
+    function Group(props) {
+        _classCallCheck(this, Group);
+
+        this.id = props.id;
+        this.schedule = props.schedule;
+        this.title = props.title;
+        this.tasks = props.tasks.map(function (v) {
+            return new __WEBPACK_IMPORTED_MODULE_2__task__["a" /* default */](v);
+        });
+        this.completed = props.completed;
+        this.createdAt = props.createdAt;
+    }
+
+    _createClass(Group, [{
+        key: 'spliceTask',
+        value: function spliceTask(task) {
+            var index = this.tasks.findIndex(function (v) {
+                return v.id === task.id;
+            });
+            var cloneTasks = [].concat(_toConsumableArray(this.tasks));
+
+            if (index >= 0) {
+                cloneTasks.splice(index, 1, task);
+            }
+
+            return this.recreate({ tasks: cloneTasks });
+        }
+    }, {
+        key: 'recreate',
+        value: function recreate() {
+            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+            return new Group(_extends({}, this, props));
+        }
+    }], [{
+        key: 'get',
+        value: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(date) {
+                var _ref2, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/groups/' + date);
+
+                            case 2:
+                                _ref2 = _context.sent;
+                                data = _ref2.data.data;
+                                return _context.abrupt('return', data.map(function (v) {
+                                    return new Group(v);
+                                }));
+
+                            case 5:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function get(_x2) {
+                return _ref.apply(this, arguments);
+            }
+
+            return get;
+        }()
+    }, {
+        key: 'create',
+        value: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(date) {
+                var _ref4, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/groups/' + date);
+
+                            case 2:
+                                _ref4 = _context2.sent;
+                                data = _ref4.data.data;
+                                return _context2.abrupt('return', new Group(data));
+
+                            case 5:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function create(_x3) {
+                return _ref3.apply(this, arguments);
+            }
+
+            return create;
+        }()
+    }, {
+        key: 'update',
+        value: function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(group) {
+                var _ref6, data;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _context3.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/api/groups/' + group.id, {
+                                    title: group.title
+                                });
+
+                            case 2:
+                                _ref6 = _context3.sent;
+                                data = _ref6.data;
+                                return _context3.abrupt('return', new Group(data.data));
+
+                            case 5:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+
+            function update(_x4) {
+                return _ref5.apply(this, arguments);
+            }
+
+            return update;
+        }()
+    }, {
+        key: 'destroy',
+        value: function () {
+            var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(group) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                _context4.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/api/groups/' + group.id);
+
+                            case 2:
+                                return _context4.abrupt('return', _context4.sent);
+
+                            case 3:
+                            case 'end':
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this);
+            }));
+
+            function destroy(_x5) {
+                return _ref7.apply(this, arguments);
+            }
+
+            return destroy;
+        }()
+    }]);
+
+    return Group;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Group);
+
+/***/ }),
+/* 204 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["title"] = title;
+
+function title(value) {
+    return Boolean(value) ? value : 'Untitled';
+}
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(206)
+/* template */
+var __vue_template__ = __webpack_require__(207)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/components/v-task-group.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9764538a", Component.options)
+  } else {
+    hotAPI.reload("data-v-9764538a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 206 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__v_check_input__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__v_check_input___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__v_check_input__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__v_text_input__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__v_text_input___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__v_text_input__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'v-task-group',
+
+    inject: ['deleteGroup', 'updateGroup', 'createTask', 'deleteTask', 'updateTask'],
+
+    components: {
+        vTextInput: __WEBPACK_IMPORTED_MODULE_2__v_text_input___default.a,
+        vCheckInput: __WEBPACK_IMPORTED_MODULE_1__v_check_input___default.a
+    },
+
+    props: {
+        value: {
+            type: __WEBPACK_IMPORTED_MODULE_0__models__["a" /* Group */],
+            required: true
+        }
+    },
+
+    methods: {
+        taskCompletion: function taskCompletion(index, isCompleted) {
+            var task = this.value.tasks[index];
+
+            this.value.tasks.splice(index, 1, task.recreate({
+                completed: isCompleted
+            }));
+        },
+        taskChanges: function taskChanges(task) {
+            this.updateGroup(this.value.spliceTask(task));
+        },
+        titleChanges: function titleChanges(title) {
+            this.updateGroup(this.value.recreate({ title: title }));
+        }
+    }
+});
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card h-100 shadow-sm rounded-0 border-0" }, [
+    _c("div", { staticClass: "card-header bg-white" }, [
+      _c("div", { staticClass: "row align-items-center" }, [
+        _c(
+          "div",
+          { staticClass: "col mr-auto" },
+          [
+            _c("v-text-input", {
+              attrs: { value: _vm.value.title },
+              on: {
+                blur: function($event) {
+                  return _vm.titleChanges($event)
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _c("div", { staticClass: "col-auto" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-light btn-sm",
+              on: {
+                click: function($event) {
+                  return _vm.deleteGroup(_vm.value)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa fa-trash-o text-danger" })]
+          )
+        ])
+      ])
+    ]),
+    _c(
+      "div",
+      { staticClass: "card-body overflow-auto bg-light" },
+      _vm._l(_vm.value.tasks, function(task, index) {
+        return _c("div", { key: task.id, staticClass: "mb-3" }, [
+          _c("div", { staticClass: "row align-items-top" }, [
+            _c(
+              "div",
+              { staticClass: "col-auto" },
+              [
+                _c("v-check-input", {
+                  key: "tasks_" + task.id,
+                  attrs: { value: task.completed },
+                  on: {
+                    input: function($event) {
+                      _vm.updateTask(task.recreate({ completed: $event }))
+                    }
+                  }
+                })
+              ],
+              1
+            ),
+            _c(
+              "div",
+              { staticClass: "col mr-auto" },
+              [
+                _c("v-text-input", {
+                  attrs: { value: task.title, crossout: task.completed },
+                  on: {
+                    blur: function($event) {
+                      _vm.updateTask(task.recreate({ title: $event }))
+                    }
+                  }
+                })
+              ],
+              1
+            ),
+            _c("div", { staticClass: "col-auto" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-light btn-sm",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteTask(task)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-trash-o text-danger" })]
+              )
+            ])
+          ])
+        ])
+      }),
+      0
+    ),
+    _c(
+      "div",
+      { staticClass: "card-footer bg-white align-items-center d-flex" },
+      [
+        _c("span", { staticClass: "badge badge-success" }, [
+          _vm._v(_vm._s(_vm.value.tasks.length) + " TASKS")
+        ]),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-link text-dark btn-sm ml-auto",
+            on: {
+              click: function($event) {
+                return _vm.createTask(_vm.value)
+              }
+            }
+          },
+          [_vm._v("ADD NEW")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9764538a", module.exports)
+  }
+}
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports) {
 
 
 
